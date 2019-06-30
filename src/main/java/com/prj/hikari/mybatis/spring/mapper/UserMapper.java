@@ -2,6 +2,7 @@ package com.prj.hikari.mybatis.spring.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
@@ -19,4 +20,7 @@ public interface UserMapper {
 
 	@Select("select id, name, email from user")
 	List<User> findAllUsers();
+	
+	@Delete("delete from student where id=#{id}")
+	void delete(int id);
 }
