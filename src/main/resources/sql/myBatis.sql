@@ -1,3 +1,5 @@
+create schema MYBATIS;
+
 use MYBATIS;
 
 DROP TABLE IF EXISTS student;
@@ -11,7 +13,8 @@ CREATE TABLE  student(
    PRIMARY KEY ( ID )
 );
 
-create table user(
+DROP TABLE IF EXISTS users;
+create table users(
 ID int(10) NOT NULL AUTO_INCREMENT,  
    NAME varchar(100) NOT NULL,
    EMAIL varchar(255) NOT NULL,
@@ -21,3 +24,19 @@ ID int(10) NOT NULL AUTO_INCREMENT,
 Commit;
 
 select * from student;
+
+select id, name, email from user;
+select * from users;
+
+truncate users;
+
+CREATE TABLE users (SELECT * FROM user);
+
+SHOW VARIABLES LIKE "general_log%";
+
+SET GLOBAL log_output = 'TABLE';
+SET GLOBAL general_log = 'ON';
+
+select * from mysql.general_log 
+where user_host like '%127.%'
+order by event_time desc;
