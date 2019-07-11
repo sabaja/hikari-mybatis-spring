@@ -1,9 +1,5 @@
 package com.prj.hikari.mybatis.spring;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

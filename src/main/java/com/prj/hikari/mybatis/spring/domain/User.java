@@ -1,7 +1,5 @@
 package com.prj.hikari.mybatis.spring.domain;
 
-import org.apache.ibatis.annotations.Select;
-
 //	@Select("select id, name, email from users")
 public class User {
 

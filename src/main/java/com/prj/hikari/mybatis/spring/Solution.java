@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Solution {
 
-	//MissingInteger
+	// MissingInteger
 	public int solution(int[] A) {
 		// write your code in Java SE 8
 		int[] B = new int[1_000_001];
@@ -23,13 +23,6 @@ public class Solution {
 		return min;
 	}
 
-	public static void main(String[] args) {
-		int[] A = { 1, 2, 1, 3, 3, 4, 4 };
-		Solution s = new Solution();
-		System.out.println(s.solution1(A));
-
-	}
-
 	public void print(int[] A) {
 		for (int i = 0; i < A.length; i++) {
 			System.out.printf("%d ", A[i]);
@@ -45,6 +38,48 @@ public class Solution {
 			}
 		}
 		return A[A.length - 1];
+	}
+
+	// CyclicRotation
+	public int[] solution2(int[] A, int K) {
+		final int A_LEN = A.length;
+		int arrTemp[] = new int[A_LEN - 1];
+		int tempNum = 0;
+		for (int k = 0; k < K; k++) {
+			tempNum = A[A_LEN - 1];
+			arrTemp = Arrays.copyOfRange(A, 0, A_LEN - 1);
+//			print(arrTemp);
+//			System.out.println();
+			for (int i = 0; i < A_LEN; i++) {
+				if (i == 0) {
+					A[i] = tempNum;
+				} else {
+					A[i] = arrTemp[i - 1];
+				}
+			}
+		}
+		return A;
+	}
+
+	// CyclicRotation
+	public int[] solution3(int[] A, int K) {
+		if()
+		int[] shiftedArray = new int[A.length];
+		for (int i = 0; i < A.length; i++) {
+			if (i + K >= A.length)
+				shiftedArray[(i + K) % A.length] = A[i];
+			else
+				shiftedArray[i + K] = A[i];
+		}
+		return shiftedArray;
+	}
+
+	public static void main(String[] args) {
+		int[] A = { 3, 8, 9, 7, 6 };
+		Solution s = new Solution();
+//		
+		s.print(s.solution3(A, 4));
+
 	}
 
 }
