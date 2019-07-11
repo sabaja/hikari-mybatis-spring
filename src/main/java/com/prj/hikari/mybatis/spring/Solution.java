@@ -1,31 +1,32 @@
 package com.prj.hikari.mybatis.spring;
 
+import java.util.Arrays;
+
 public class Solution {
 
+	//MissingInteger
 	public int solution(int[] A) {
-		final int MAX = A.length;
-		int[] register = new int[MAX];
-		int ret = 1;
-		for (int i : A) {
-			if (i < 0)
-				break;
-			register[i - 1] = 1;
+		// write your code in Java SE 8
+		int[] B = new int[1_000_001];
+		int min = 1;
+		for (int number : A) {
+			if (number > 0) {
+				B[number] = 1;
+			}
 		}
-
-		for (int i = 0; i < MAX; i++) {
-			if (register[i] == 0) {
-				ret = i + 1;
+		for (int i = 1; i < B.length; i++) {
+			if (B[i] == 0) {
+				min = i;
 				break;
 			}
 		}
-
-		return ret;
+		return min;
 	}
 
 	public static void main(String[] args) {
-		int[] A = { -1, -3 };
+		int[] A = { 1, 2, 1, 3, 3, 4, 4 };
 		Solution s = new Solution();
-		System.out.println("\n" + s.solution(A));
+		System.out.println(s.solution1(A));
 
 	}
 
@@ -34,4 +35,16 @@ public class Solution {
 			System.out.printf("%d ", A[i]);
 		}
 	}
+
+	// OddOccurrencesInArray
+	public int solution1(int[] A) {
+		Arrays.sort(A);
+		for (int i = 0; i < A.length - 1; i += 2) {
+			if (A[i] != A[i + 1]) {
+				return A[i];
+			}
+		}
+		return A[A.length - 1];
+	}
+
 }
