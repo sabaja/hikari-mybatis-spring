@@ -103,11 +103,27 @@ public class Solution {
 		return steps;
 	}
 
+	// PermMissingElem
+	// An array A consisting of N different integers is given. The array contains
+	// integers in the range [1..(N + 1)], which means that exactly one element is
+	// missing.
+	public int solution6(int[] A) {
+		Arrays.sort(A);
+		int missing = 1;
+		for (int i = 0; i < A.length; i++) {
+			if (A[i] == missing) {
+				missing++;
+			}
+		}
+		return missing;
+	}
+
 	public static void main(String[] args) {
-		int[] A = { 3, 8, 9, 7, 6 };
+		int[] A = { 1, 2 };
 		Solution s = new Solution();
 		//
-		s.print(s.solution3(A, 4));
+//		s.print(s.solution3(A, 4));
+		System.out.println(s.solution6(A));
 
 	}
 
