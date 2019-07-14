@@ -1,6 +1,9 @@
 package com.prj.hikari.mybatis.spring;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Solution {
 
@@ -118,13 +121,71 @@ public class Solution {
 		return missing;
 	}
 
+	// TapeEquilibrium
+	// A non-empty array A consisting of N integers is given. Array A represents
+	// numbers on a tape.
+	public int solution7(int[] A) {
+		// currentDiff is right - left for the current partition.
+		// Initially, we partition at P = 1.
+		long currentDiff = -A[0];
+
+		for (int i = 1; i < A.length; i++) {
+			currentDiff += A[i];
+		}
+
+		// Now test each partition. minDiff is the minimum difference
+		// found so far.
+		long minDiff = Math.abs(currentDiff);
+		for (int i = 1; i < A.length - 1; i++) {
+			currentDiff -= 2 * A[i]; // A[i] moves from right to left.
+			minDiff = Math.min(minDiff, Math.abs(currentDiff));
+		}
+		return (int) minDiff;
+	}
+
+//		PermCheck
+//	A non-empty array A consisting of N integers is given.
+//  A permutation is a sequence containing each element from 1 to N once, and only once.
+	public int solution8(int[] A) {
+		Set<Integer> set = new HashSet<>();
+		// calculating sum of permutation elements
+		int sum = A.length * (A.length + 1) / 2;
+		for (int i = 0; i < A.length; i++) {
+			set.add(A[i]);
+			sum -= A[i];
+		}
+		// return 0 if either sizes don't much or there was some
+		// number/s missing in permutation and thus sum !=0;
+		return ((set.size() == A.length) && sum == 0) ? 1 : 0;
+	}
+
+//	FrogRiverOne
+//  A small frog wants to get to the other side of a river. The frog is initially located on one bank of the river (position 0) and wants to get to the opposite bank (position X+1). 
+//	Leaves fall from a tree onto the surface of the river.	
+	public int solution9(int X, int[] A) {
+		int steps = -1;
+		Set<Integer> values = new TreeSet<Integer>();
+		for (int i = 0; i < A.length; i++) {
+			if (A[i] <= X) {
+				values.add(A[i]);
+			}
+			if (values.size() == X) {
+				steps = i;
+				break;
+			}
+		}
+		return steps;
+	}
+
 	public static void main(String[] args) {
-		int[] A = { 1, 2 };
+		int[] A = { 9, 5, 7, 3, 2, 7, 3, 1, 10, 8 };
 		Solution s = new Solution();
 		//
 //		s.print(s.solution3(A, 4));
-		System.out.println(s.solution6(A));
-
+//		System.out.println(s.solution6(A));
+//		System.out.println(s.solution7(A));
+//		System.out.println(s.solution8(A));
+		System.out.println(s.solution9(2, A));
 	}
 
 }
