@@ -143,9 +143,10 @@ public class Solution {
 		return (int) minDiff;
 	}
 
-//		PermCheck
-//	A non-empty array A consisting of N integers is given.
-//  A permutation is a sequence containing each element from 1 to N once, and only once.
+	// PermCheck
+	// A non-empty array A consisting of N integers is given.
+	// A permutation is a sequence containing each element from 1 to N once, and
+	// only once.
 	public int solution8(int[] A) {
 		Set<Integer> set = new HashSet<>();
 		// calculating sum of permutation elements
@@ -159,9 +160,11 @@ public class Solution {
 		return ((set.size() == A.length) && sum == 0) ? 1 : 0;
 	}
 
-//	FrogRiverOne
-//  A small frog wants to get to the other side of a river. The frog is initially located on one bank of the river (position 0) and wants to get to the opposite bank (position X+1). 
-//	Leaves fall from a tree onto the surface of the river.	
+	// FrogRiverOne
+	// A small frog wants to get to the other side of a river. The frog is initially
+	// located on one bank of the river (position 0) and wants to get to the
+	// opposite bank (position X+1).
+	// Leaves fall from a tree onto the surface of the river.
 	public int solution9(int X, int[] A) {
 		int steps = -1;
 		Set<Integer> values = new TreeSet<Integer>();
@@ -177,15 +180,44 @@ public class Solution {
 		return steps;
 	}
 
+	// MaxCounters
+	// You are given N counters, initially set to 0, and you have two possible
+	// operations on them:
+	public int[] solution10(int N, int[] A) {
+		int counter[] = new int[N];
+		final int n = A.length;
+		int max = -1, current_min = 0;
+
+		for (int i = 0; i < n; i++) {
+			if (A[i] >= 1 && A[i] <= N) {
+				if (counter[A[i] - 1] < current_min) {
+					counter[A[i] - 1] = current_min;
+				}
+				counter[A[i] - 1] = counter[A[i] - 1] + 1;
+				
+				if (counter[A[i] - 1] > max) {
+					max = counter[A[i] - 1];
+				}
+			} else if (A[i] == N + 1) {
+				current_min = max;
+			}
+		}
+		for (int i = 0; i < N; i++) {
+			if (counter[i] < current_min)
+				counter[i] = current_min;
+		}
+		return counter;
+	}
+
 	public static void main(String[] args) {
-		int[] A = { 9, 5, 7, 3, 2, 7, 3, 1, 10, 8 };
+		int[] A = { 17, 4, 2, 3 };
 		Solution s = new Solution();
 		//
-//		s.print(s.solution3(A, 4));
-//		System.out.println(s.solution6(A));
-//		System.out.println(s.solution7(A));
-//		System.out.println(s.solution8(A));
-		System.out.println(s.solution9(2, A));
+		// s.print(s.solution3(A, 4));
+		// System.out.println(s.solution6(A));
+		// System.out.println(s.solution7(A));
+		// System.out.println(s.solution8(A));
+		System.out.println(s.solution10(5, A));
 	}
 
 }
