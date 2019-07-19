@@ -7,8 +7,31 @@ import java.util.TreeSet;
 
 public class Solution {
 
+	public int solution(String S) {
+		final int ZERO_CONST = 0;
+		if (null == S || "".equals(S))
+			return ZERO_CONST;
+
+		int temp, c = ZERO_CONST;
+		final int num = Integer.parseInt(S, 2);
+		if (num == ZERO_CONST) {
+			return ZERO_CONST;
+		}
+
+		temp = num;
+		while (temp >= 1) {
+			if (temp % 2 == 0) {
+				temp /= 2;
+			} else {
+				temp -= 1;
+			}
+			c++;
+		}
+		return c;
+	}
+
 	// MissingInteger
-	public int solution(int[] A) {
+	public int _solution(int[] A) {
 		// write your code in Java SE 8
 		int[] B = new int[1_000_001];
 		int min = 1;
@@ -196,7 +219,7 @@ public class Solution {
 					counter[A[i] - 1] = current_min;
 				}
 				counter[A[i] - 1] = counter[A[i] - 1] + 1;
-				
+
 				if (counter[A[i] - 1] > max) {
 					max = counter[A[i] - 1];
 				}
@@ -219,7 +242,9 @@ public class Solution {
 		// System.out.println(s.solution6(A));
 		// System.out.println(s.solution7(A));
 		// System.out.println(s.solution8(A));
-		System.out.println(s.solution10(5, A));
+//		System.out.println(s.solution10(5, A));
+		
+		System.out.println(s.solution("011100"));
 	}
 
 }
