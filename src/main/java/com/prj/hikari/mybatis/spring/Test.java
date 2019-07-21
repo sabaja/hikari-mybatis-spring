@@ -3,10 +3,14 @@ package com.prj.hikari.mybatis.spring;
 public class Test {
 
 	public static void main(String[] args) throws Exception {
+//		int[] arr = new int[10_000];
+//		for (int i = 0; i < 10_000; i++) {
+//			arr[i] = 2;
+//		}
+
 		int[] arr = { -1, 1, 3, 3, 3, 2, 3, 2, 1, 0 };
-		// int[] arr = { 2, 2, 2, 2 };
 		Test t = new Test();
-		System.out.println("\nperiodi: " + t.solution(arr));
+		System.out.println("\nperiods: " + t.solution(arr));
 
 	}
 
@@ -34,30 +38,43 @@ public class Test {
 	}
 
 	public int solution(int[] arr) throws Exception {
+		System.out.print("arr:\t");
+		print(arr);
+		System.out.println();
+
 		if (arr.length < 3)
 			return -1;
+
 		final int DIFF_LEN = arr.length - 1;
 		int[] diff = new int[DIFF_LEN]; // difference are
 		int[] binaryArr = new int[DIFF_LEN - 1];
 		int[] binaryRecurrence = new int[DIFF_LEN / 2];
 
+		// 1 - Start - Finding the difference
 		for (int i = 0; i < DIFF_LEN; i++) {
 			diff[i] = arr[i] - arr[i + 1];
 		}
 
+		System.out.print("diff:\t");
+		print(diff);
+		System.out.println();
+
+		// 2 - Analysis of diff array, I put 1 in an another array if the consecutive
+		// values are equals: diff[i] == diff[i + 1]
 		for (int i = 0; i < DIFF_LEN - 1; i++) {
 			if (diff[i] == diff[i + 1]) {
 				binaryArr[i] = 1;
 			}
 		}
-		System.out.print("binaryArr:\t");
+		System.out.print("bin:\t");
 
 		print(binaryArr);
 		System.out.println();
 		int count = 0;
+		binaryRecurrence[count] = 1;
 		for (int i = 0; i < binaryArr.length - 1; i++) {
 			if (binaryArr[i] == binaryArr[i + 1] && binaryArr[i] == 1) {
-				binaryRecurrence[count] += binaryArr[i] + binaryArr[i + 1];
+				binaryRecurrence[count] += binaryArr[i];
 			} else if (binaryArr[i] == 1) {
 				binaryRecurrence[count] += binaryArr[i];
 				count++;
@@ -73,12 +90,15 @@ public class Test {
 
 		for (int ele : binaryRecurrence) {
 			if (ele > 0) {
-				n += ele * (1 + ele) / 2;
+				final int max = ele;
+				n += max * (1 + max) / 2;
 			}
 		}
+		if (n > 1_000_000_000)
+			return -1;
 
 		// summation
-		return n ;
+		return n;
 	}
 
 	public void print(int[] A) {
