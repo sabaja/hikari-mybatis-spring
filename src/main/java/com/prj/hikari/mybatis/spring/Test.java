@@ -3,8 +3,8 @@ package com.prj.hikari.mybatis.spring;
 public class Test {
 
 	public static void main(String[] args) throws Exception {
-//		int[] arr = new int[10_000];
-//		for (int i = 0; i < 10_000; i++) {
+//		int[] arr = new int[60_000];
+//		for (int i = 0; i < 60_000; i++) {
 //			arr[i] = 2;
 //		}
 
@@ -50,7 +50,7 @@ public class Test {
 		int[] binaryArr = new int[DIFF_LEN - 1];
 		int[] binaryRecurrence = new int[DIFF_LEN / 2];
 
-		// 1 - Start - Finding the difference
+		// 1 - Start - Finding the difference between the positions of the particle
 		for (int i = 0; i < DIFF_LEN; i++) {
 			diff[i] = arr[i] - arr[i + 1];
 		}
@@ -59,8 +59,11 @@ public class Test {
 		print(diff);
 		System.out.println();
 
-		// 2 - Analysis of diff array, I put 1 in an another array if the consecutive
-		// values are equals: diff[i] == diff[i + 1]
+		// 2 - Analysis of diff array - checking if the velocity of the particle is
+		// constant.
+		// I put 1 in an another array if the consecutive
+		// values are equals: diff[i] == diff[i + 1], similar to something like a
+		// roll-call
 		for (int i = 0; i < DIFF_LEN - 1; i++) {
 			if (diff[i] == diff[i + 1]) {
 				binaryArr[i] = 1;
@@ -70,6 +73,9 @@ public class Test {
 
 		print(binaryArr);
 		System.out.println();
+
+		// 3 - checking if period is contained in an another one.. I gather all the
+		// consecutive 1s and summed them up
 		int count = 0;
 		binaryRecurrence[count] = 1;
 		for (int i = 0; i < binaryArr.length - 1; i++) {
@@ -88,16 +94,23 @@ public class Test {
 		print(binaryRecurrence);
 		int n = 0;
 
+		/* 
+		 	summation formula: 
+			∞ 
+			∑n = n(n+1)/2
+			n=1
+		*/
 		for (int ele : binaryRecurrence) {
 			if (ele > 0) {
 				final int max = ele;
 				n += max * (1 + max) / 2;
+		
+		// 	below doesn't work				
+		//	if (exceeds >= 1_000_000_000) {
+		//		return -1;
+		//	}
 			}
 		}
-		if (n > 1_000_000_000)
-			return -1;
-
-		// summation
 		return n;
 	}
 
